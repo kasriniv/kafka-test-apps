@@ -72,7 +72,7 @@ public class KafkaTestConsumer extends AbstractVerticle {
         consumer = KafkaConsumer.create(vertx, config, String.class, String.class);
 
         consumer.handler(res -> {
-            log.info("Received message (topic: {}, partition: {}, offset: {}) with key {}: {}", res.topic(), res.partition(), res.offset(), res.key(), res.value());
+            log.info("Hi Kavitha Received message (topic: {}, partition: {}, offset: {}) with key {}: {}", res.topic(), res.partition(), res.offset(), res.key(), res.value());
 
             if (commit) {
                 consumer.commit();
