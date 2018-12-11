@@ -120,7 +120,7 @@ public class KafkaTestConsumer extends AbstractVerticle {
     // to either complete or fail the test
   //  async.complete();
      
-    log.info("Some callback " + response.statusCode());
+    log.info("Some callback " + response.statusCode()+response.statusMessage());
   });
 log.info("point1");
   //String body = "hi from kafka consumer 2 to kavitha nodejs service";
