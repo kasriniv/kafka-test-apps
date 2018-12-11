@@ -116,6 +116,7 @@ public class KafkaTestProducer extends AbstractVerticle {
                 });
             }
         });
+        
         private void sendMessage(String whattosend) {
         KafkaProducerRecord<String, String> record = KafkaProducerRecord.create(verticleConfig.getTopic(), getKey(), 
                                                                                 "{ \"Message\": \"" + whattosend + "\" }");
@@ -132,7 +133,7 @@ public class KafkaTestProducer extends AbstractVerticle {
                 });
             }
         });
-    }
+   // }
 
   
             
