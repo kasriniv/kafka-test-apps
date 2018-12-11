@@ -3,8 +3,8 @@ package cz.scholz.kafka.testapps.consumer;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.kafka.client.consumer.KafkaConsumer;
-import io.vertx.reactivex.core.http.HttpClient;
-import io.vertx.reactivex.core.http.HttpClientRequest;
+import io.vertx.core.http.HttpClient;
+import io.vertx.core.http.HttpClientRequest;
 
 import java.security.KeyStore;
 import java.util.HashMap;
