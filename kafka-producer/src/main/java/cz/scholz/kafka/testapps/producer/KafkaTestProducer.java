@@ -74,11 +74,11 @@ public class KafkaTestProducer extends AbstractVerticle {
         producer.exceptionHandler(res -> {
             log.error("Received exception", res);
         });
-
+    /* since we are sending message only on post
         vertx.setPeriodic(verticleConfig.getTimer(), res -> {
             sendMessage();
         });
-        
+        */
         
          vertx.createHttpServer().requestHandler(req -> {
       if (req.uri().equals("/message")) {
