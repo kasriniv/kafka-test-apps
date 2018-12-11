@@ -85,8 +85,10 @@ public class KafkaTestProducer extends AbstractVerticle {
         // Serve the index page
       
           req.handler(data -> log.info("Got data " + data.toString("ISO-8859-1")));
+          String messagtosend=data.toString("ISO-8859-1");
 
           log.info("started listening");
+          sendMessage(messagetosend);
            req.response().end();
       } 
     }).listen(8080);
@@ -95,12 +97,28 @@ public class KafkaTestProducer extends AbstractVerticle {
         
         //end http post trial
         start.complete();
-        sendMessage(); //was uncommented in original
+        //UNCOMMENTING FOR NOW sendMessage(); 
     }
 
     
     private void sendMessage() {
         KafkaProducerRecord<String, String> record = KafkaProducerRecord.create(verticleConfig.getTopic(), getKey(), "{ \"Message\": \"" + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) + "\" }");
+        producer.write(record, res2 -> {
+            log.info("Message sent to topic {} with key {} and value {}", record.topic(), record.key(), record.value());
+            sentMessages++;
+
+            
+            if (messageCount != null && messageCount <= sentMessages)   {
+                log.info("{} messages sent ... exiting", messageCount);
+
+                vertx.close(closeRes -> {
+                    System.exit(0);
+                });
+            }
+        });
+        private void sendMessage(String whattosend) {
+        KafkaProducerRecord<String, String> record = KafkaProducerRecord.create(verticleConfig.getTopic(), getKey(), 
+                                                                                "{ \"Message\": \"" + whattosend + "\" }");
         producer.write(record, res2 -> {
             log.info("Message sent to topic {} with key {} and value {}", record.topic(), record.key(), record.value());
             sentMessages++;
