@@ -121,9 +121,11 @@ public class KafkaTestProducer extends AbstractVerticle {
     } //end send message
     
 private void sendMessage(String whattosend) {
+/*    
  KafkaProducerRecord<String, String> record = KafkaProducerRecord.create(verticleConfig.getTopic(), getKey(), 
            "{ \"Message\": \"" + whattosend + "\" }");
-        
+    */
+        KafkaProducerRecord<String, String> record = KafkaProducerRecord.create(verticleConfig.getTopic(), getKey(),whattosend);
         producer.write(record, res2 -> {
             log.info("Message sent to topic {} with key {} and value {}", record.topic(), record.key(), record.value());
             sentMessages++;
