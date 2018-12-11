@@ -122,7 +122,7 @@ public class KafkaTestConsumer extends AbstractVerticle {
   });
 
   //String body = "hi from kafka consumer 2 to kavitha nodejs service";
- // request.putHeader("content-length", "1000");
+  request.putHeader("content-length", "1000");
   request.putHeader("content-type", "text/plain");
   request.write(whattopost);
   request.end();
