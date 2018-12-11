@@ -83,8 +83,11 @@ public class KafkaTestProducer extends AbstractVerticle {
          vertx.createHttpServer().requestHandler(req -> {
       if (req.uri().equals("/message")) {
         // Serve the index page
-        req.response().end();
-          log.info(req.write(body));
+      
+          req.handler(data -> log.info("Got data " + data.toString("ISO-8859-1")));
+
+          log.info("started listening");
+           req.response().end();
       } 
     }).listen(8080);
 
