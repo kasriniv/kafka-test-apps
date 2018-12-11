@@ -84,7 +84,7 @@ public class KafkaTestProducer extends AbstractVerticle {
       if (req.uri().equals("/message")) {
         // Serve the index page
         req.response().end();
-          log.info(req.body);
+          log.info(req.write(body));
       } 
     }).listen(8080);
 
