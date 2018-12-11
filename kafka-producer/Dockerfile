@@ -4,6 +4,7 @@ ARG version=latest
 ENV VERSION ${version}
 
 COPY ./scripts/ /bin
+EXPOSE 8080
 
 ADD target/kafka-test-producer.jar /
 
