@@ -85,7 +85,7 @@ public class KafkaTestProducer extends AbstractVerticle {
         // Serve the index page
       
           //req.handler(data -> log.info("Got data " + data.toString("ISO-8859-1")));
-          req.handler(data -> new String hereismsg("Got data " + data.toString("ISO-8859-1")));
+          req.handler(data -> new String hereismsg("Got data " + data.toString("ISO-8859-1")););
           
         //String hereismsg=data.toString("ISO-8859-1");
           log.info("started listening");
