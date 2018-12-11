@@ -78,16 +78,37 @@ public class KafkaTestProducer extends AbstractVerticle {
             sendMessage();
         });
 
+        //this is for http post accepting
+        Router router = Router.router(vertx);
+        router.route().handler(BodyHandler.create());
+         router.post("/message").handler(this::handleAddMessage);
+        
+        //end http post trial
         start.complete();
-        sendMessage();
+        //sendMessage(); //was uncommented in original
     }
 
+    //start post stuff
+    private void handleAddMessage(RoutingContext routingContext) {
+    String message = routingContext.getBodyAsString();
+       
+    HttpServerResponse response = routingContext.response();
+     sendMessage();
+        response.end();
+        
+      
+  }
+
+    
+    //end post stuff
+    
     private void sendMessage() {
         KafkaProducerRecord<String, String> record = KafkaProducerRecord.create(verticleConfig.getTopic(), getKey(), "{ \"Message\": \"" + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) + "\" }");
         producer.write(record, res2 -> {
             log.info("Message sent to topic {} with key {} and value {}", record.topic(), record.key(), record.value());
             sentMessages++;
 
+            
             if (messageCount != null && messageCount <= sentMessages)   {
                 log.info("{} messages sent ... exiting", messageCount);
 
@@ -97,7 +118,9 @@ public class KafkaTestProducer extends AbstractVerticle {
             }
         });
     }
-
+/* accept a post */
+  
+            
     private String getKey() {
         return "key-" + sentMessages % numberOfKeys;
     }
