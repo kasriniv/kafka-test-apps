@@ -114,7 +114,7 @@ public class KafkaTestConsumer extends AbstractVerticle {
   // Get an async object to control the completion of the test
  // Async async = context.async();
   HttpClient client = vertx.createHttpClient();
-  HttpClientRequest request = client.post("80","http://ktestapp2-myproject.192.168.64.3.nip.io","/hi", response -> {
+  HttpClientRequest request = client.post(80,"http://ktestapp2-myproject.192.168.64.3.nip.io","/hi", response -> {
     // You may want to check response code here
     // to either complete or fail the test
   //  async.complete();
