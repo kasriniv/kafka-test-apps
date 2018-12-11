@@ -113,19 +113,24 @@ public class KafkaTestConsumer extends AbstractVerticle {
     public void testPost(String whattopost) {
   // Get an async object to control the completion of the test
  // Async async = context.async();
+        log.info("posting"+whattopost);
   HttpClient client = vertx.createHttpClient();
   HttpClientRequest request = client.post(80,"http://ktestapp2-myproject.192.168.64.3.nip.io","/hi", response -> {
     // You may want to check response code here
     // to either complete or fail the test
   //  async.complete();
+     
     log.info("Some callback " + response.statusCode());
   });
-
+log.info("point1");
   //String body = "hi from kafka consumer 2 to kavitha nodejs service";
   request.putHeader("content-length", "1000");
   request.putHeader("content-type", "text/plain");
+        log.info("point2");
   request.write(whattopost);
+        log.info("point3");
   request.end();
+        log.info("point4");
    }
 
     /*
