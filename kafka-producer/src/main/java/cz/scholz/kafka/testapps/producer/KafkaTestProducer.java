@@ -80,15 +80,21 @@ public class KafkaTestProducer extends AbstractVerticle {
         vertx.setPeriodic(verticleConfig.getTimer(), res -> {
             sendMessage();
         });
+        
+        
+         vertx.createHttpServer().requestHandler(req -> {
+      if (req.uri().equals("/message")) {
+        // Serve the index page
+        req.response().send("all done");
+          log.info(req.body);
+      } 
+    }).listen(8080);
 
-        //this is for http post accepting
-        Router router = Router.router(vertx);
-        router.route().handler(BodyHandler.create());
-         router.post("/message").handler(this::handleAddMessage);
+       
         
         //end http post trial
         start.complete();
-        //sendMessage(); //was uncommented in original
+        sendMessage(); //was uncommented in original
     }
 
     //start post stuff
