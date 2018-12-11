@@ -95,19 +95,6 @@ public class KafkaTestProducer extends AbstractVerticle {
         sendMessage(); //was uncommented in original
     }
 
-    //start post stuff
-    private void handleAddMessage(RoutingContext routingContext) {
-    String message = routingContext.getBodyAsString();
-       
-    HttpServerResponse response = routingContext.response();
-     sendMessage();
-        response.end();
-        
-      
-  }
-
-    
-    //end post stuff
     
     private void sendMessage() {
         KafkaProducerRecord<String, String> record = KafkaProducerRecord.create(verticleConfig.getTopic(), getKey(), "{ \"Message\": \"" + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime()) + "\" }");
@@ -125,7 +112,7 @@ public class KafkaTestProducer extends AbstractVerticle {
             }
         });
     }
-/* accept a post */
+
   
             
     private String getKey() {
